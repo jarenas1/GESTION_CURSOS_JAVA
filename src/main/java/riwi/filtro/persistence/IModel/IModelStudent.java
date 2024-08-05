@@ -16,6 +16,10 @@ public interface IModelStudent extends Create<StudentEntity>, Delete<Integer>, R
 
     boolean updateStatus(int id, Status status);
 
+    void readStudentCoursesID(int id);
+
+    void readStudentCoursesEmail(String email);
+
     List<StudentEntity> activateStudents(Status status);
 
 }
