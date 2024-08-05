@@ -26,9 +26,9 @@ public class StudentModel implements IModelStudent {
             ps = con.prepareStatement(query);
 
             //AÑADIMOS DATOS A LA QUERY
-            ps.setString(1,objeto.getName());
-            ps.setString(2,objeto.getLastName());
-            ps.setString(3, objeto.getEmail());
+            ps.setString(1,objeto.getName().toLowerCase());
+            ps.setString(2,objeto.getLastName().toLowerCase());
+            ps.setString(3, objeto.getEmail().toLowerCase());
 
             ps.execute();
             return true;
@@ -40,68 +40,6 @@ public class StudentModel implements IModelStudent {
         return false;
     }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-
-    @Override
-    public boolean delete(Integer identidicador) {
-        //CREAMOS INSTANCIAS NECESARIAS Y QUERY
-        PreparedStatement ps;
-        Connection con = Connect.conectar();
-        String query = "DELETE FROM student WHERE id = ?;";
-
-        try {
-            ps = con.prepareStatement(query);
-
-            //AÑADIR DATOS A QUERY
-            ps.setInt(1,identidicador);
-
-            ps.execute();
-            return true;
-        }catch (Exception e){
-            System.out.println("the student cant be deleted "+e.getLocalizedMessage());
-        }finally {
-            Connect.cerrar();
-        }
-        return false;
-    }
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------------
-
-    //READS
-    @Override
-    public List<StudentEntity> readAll() {
-        //CREAMOS INSTANCIAS Y RESULSET YA QUE VAMOS A EXTRAER RESULTADO
-        ResultSet rs;
-        PreparedStatement ps;
-        Connection con = Connect.conectar();
-        String query = "SELECT * FROM student;";
-
-        //CREAMOS ARRAY CONTENEDOR DE ESTUDIANTES
-        List<StudentEntity> students = new ArrayList<>();
-
-        try {
-            ps = con.prepareStatement(query);
-
-            rs = ps.executeQuery();
-
-            //ITERAMOS PARA AÑADIR AL ARRAY
-            while (rs.next()){
-                //EXTRAEMOS EL ENUM PARA ASIGNARLO EN JAVA
-                String activeStr = rs.getString("active");
-                Status status = Status.valueOf(activeStr);
-
-                //AÑADIMOS OBJETO AL ARRAY
-                StudentEntity student = new StudentEntity(rs.getInt("id"),rs.getString("name"),rs.getString("lastName"), rs.getString("email"),status);
-                students.add(student);
-            }
-        }catch (Exception e){
-            System.out.println("cannot be read te students");
-        }finally {
-            Connect.cerrar();
-        }
-        //DEVOLVEMOS LISTA
-        return students;
-    }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -165,81 +103,6 @@ public class StudentModel implements IModelStudent {
 
     //----------------------------------------------------------------------------------------------------------------------------------------------
 
-    //read email
-    @Override
-    public List<StudentEntity> readString(String dato) {
-
-        ResultSet rs;
-        PreparedStatement ps;
-        Connection con = Connect.conectar();
-        String query = "SELECT * FROM student WHERE email = dato;";
-
-        //CREAMOS ARRAY CONTENEDOR DE ESTUDIANTES
-        List<StudentEntity> students = new ArrayList<>();
-
-        try {
-            ps = con.prepareStatement(query);
-
-            rs = ps.executeQuery();
-
-            //ITERAMOS PARA AÑADIR AL ARRAY
-            while (rs.next()){
-                //EXTRAEMOS EL ENUM PARA ASIGNARLO EN JAVA
-                String activeStr = rs.getString("active");
-                Status status = Status.valueOf(activeStr);
-
-                //AÑADIMOS OBJETO AL ARRAY
-                StudentEntity student = new StudentEntity(rs.getInt("id"),rs.getString("name"),rs.getString("lastName"), rs.getString("email"),status);
-                students.add(student);
-            }
-        }catch (Exception e){
-            System.out.println("cannot be read te students");
-        }finally {
-            Connect.cerrar();
-        }
-        //DEVOLVEMOS LISTA
-        return students;
-    }
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------------
-
-    //read id
-    @Override
-    public List<StudentEntity> readInteger(Integer id) {
-
-        ResultSet rs;
-        PreparedStatement ps;
-        Connection con = Connect.conectar();
-        String query = "SELECT * FROM student WHERE id = ?;";
-
-        //CREAMOS ARRAY CONTENEDOR DE ESTUDIANTES
-        List<StudentEntity> students = new ArrayList<>();
-
-        try {
-            ps = con.prepareStatement(query);
-            ps.setInt(1,id);
-            rs = ps.executeQuery();
-
-            //ITERAMOS PARA AÑADIR AL ARRAY
-            while (rs.next()){
-                //EXTRAEMOS EL ENUM PARA ASIGNARLO EN JAVA
-                String activeStr = rs.getString("active");
-                Status status = Status.valueOf(activeStr);
-
-                //AÑADIMOS OBJETO AL ARRAY
-                StudentEntity student = new StudentEntity(rs.getInt("id"),rs.getString("name"),rs.getString("lastName"), rs.getString("email"),status);
-                students.add(student);
-            }
-        }catch (Exception e){
-            System.out.println("cannot be read te students");
-        }finally {
-            Connect.cerrar();
-        }
-        //DEVOLVEMOS LISTA
-        return students;
-    }
-
-    //-------------------------------------------------------------------------------------------------------------------------------------
 
     @Override
     public List<StudentEntity> activateStudents(Status status) {
@@ -273,30 +136,106 @@ public class StudentModel implements IModelStudent {
         return students;
     }
 
+    //-------------------------------------------------------------------------------------------------------------------------------------
+
     //UPDATES
+
     @Override
     public boolean updateName(int id, String name) {
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "UPDATE student SET nombre = ? WHERE id = ?";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1,name.toLowerCase());
+            ps.setInt(2,id);
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("The coder cannot be updated");
+        }finally {
+            Connect.cerrar();
+        }
+
         return false;
     }
 
     @Override
     public boolean updateLastName(int id, String lastName) {
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "UPDATE student SET lastName = ? WHERE id = ?";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1,lastName.toLowerCase());
+            ps.setInt(2,id);
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("The coder cannot be updated");
+        }finally {
+            Connect.cerrar();
+        }
         return false;
     }
 
     @Override
     public boolean updateEmail(int id, String email) {
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "UPDATE student SET email = ? WHERE id = ?";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1,email.toLowerCase());
+            ps.setInt(2,id);
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("The coder cannot be updated");
+        }finally {
+            Connect.cerrar();
+        }
         return false;
     }
 
     @Override
     public boolean updateStatus(int id, Status status) {
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "UPDATE student SET active = ? WHERE id = ?";
+
+        try {
+            //PASAMOS EL ENUM A STRING
+            ps = con.prepareStatement(query);
+            ps.setString(1,status.name());
+            ps.setInt(2,id);
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("The coder cannot be updated");
+        }finally {
+            Connect.cerrar();
+        }
         return false;
     }
 
 
     @Override
     public boolean update(StudentEntity objeto) {
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "UPDATE student SET nombre = ?, lastName = ?, email = ?, active = ? WHERE id = ?";
+
+        try {
+
+        }catch (Exception e){
+            System.out.println("The coder cannot be updated");
+        }finally {
+            Connect.cerrar();
+        }
         return false;
     }
 
