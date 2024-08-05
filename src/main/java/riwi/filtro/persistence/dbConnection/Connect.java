@@ -13,9 +13,9 @@ public class Connect {
     public static java.sql.Connection conectar(){
             //CREAMOS LAS VARIABLES NECESARIAS PARA LA CONECCION  "jdbc:mysql://host:port/nombre";
 
-            String URL = "jdbc:mysql://bsgi5ajmtpyqsnzpxxsv-mysql.services.clever-cloud.com:3306/bsgi5ajmtpyqsnzpxxsv";
-            String user = "uildczwwisroozvi";
-            String password = "JgBAmPUgq9Z62N1OIDIS";
+            String URL = "jdbc:mysql://bkj9qptlv7hf4g51njcj-mysql.services.clever-cloud.com:3306/bkj9qptlv7hf4g51njcj";
+            String user = "u1blqmrd8gj1kh9l";
+            String password = "dKicGeXBU7JMVMClxVx6";
 
 
             //NOS CONECTAMOS USANDO EL DIRVER MANAGER Y LA GUARDAMOS EN LA VARIABLE NULA
