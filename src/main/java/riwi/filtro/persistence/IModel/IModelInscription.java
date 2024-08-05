@@ -1,4 +1,9 @@
 package riwi.filtro.persistence.IModel;
 
-public interface IModelInscription {
+import riwi.filtro.entities.CourseEntity;
+import riwi.filtro.entities.InscriptionEntity;
+import riwi.filtro.entities.StudentEntity;
+import riwi.filtro.persistence.CRUD.*;
+
+public interface IModelInscription extends Create<InscriptionEntity>, Delete<Integer>, ReadAll<InscriptionEntity>, ReadString<InscriptionEntity,String>, ReadInteger<InscriptionEntity,Integer>,Update<InscriptionEntity> {
 }

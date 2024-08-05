@@ -1,4 +1,4 @@
-package com.riwi.persistence.CRUD;
+package riwi.filtro.persistence.CRUD;
 
 public interface Update <T>{
 
