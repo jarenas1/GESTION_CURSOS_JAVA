@@ -248,9 +248,16 @@ public class StudentModel implements IModelStudent {
     public boolean update(StudentEntity objeto) {
         PreparedStatement ps;
         Connection con = Connect.conectar();
-        String query = "UPDATE student SET nombre = ? WHERE id = ?";
+        String query = "UPDATE student SET name = ?, lastName = ?, email = ?, active = ? WHERE id = ?";
 
         try {
+
+            ps = con.prepareStatement(query);
+            ps.setString(1,objeto.getName());
+            ps.setString(2,objeto.getLastName());
+            ps.setString(3,objeto.getEmail());
+            ps.setString(4,objeto.getStatus().name());
+            ps.setInt(5,objeto.getId());
 
         }catch (Exception e){
             System.out.println("The coder cannot be updated");
