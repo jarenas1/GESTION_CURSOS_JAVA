@@ -40,6 +40,30 @@ public class StudentModel implements IModelStudent {
         return false;
     }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean delete(Integer identidicador) {
+        //CREAMOS INSTANCIAS NECESARIAS Y QUERY
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "DELETE FROM student WHERE id = ?;";
+
+        try {
+            ps = con.prepareStatement(query);
+
+            //AÑADIR DATOS A QUERY
+            ps.setInt(1,identidicador);
+
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("the student cant be deleted "+e.getLocalizedMessage());
+        }finally {
+            Connect.cerrar();
+        }
+        return false;
+    }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -102,7 +126,6 @@ public class StudentModel implements IModelStudent {
     }
 
     //----------------------------------------------------------------------------------------------------------------------------------------------
-
 
     @Override
     public List<StudentEntity> activateStudents(Status status) {
@@ -212,8 +235,6 @@ public class StudentModel implements IModelStudent {
             ps = con.prepareStatement(query);
             ps.setString(1,status.name());
             ps.setInt(2,id);
-            ps.execute();
-            return true;
         }catch (Exception e){
             System.out.println("The coder cannot be updated");
         }finally {
@@ -227,7 +248,7 @@ public class StudentModel implements IModelStudent {
     public boolean update(StudentEntity objeto) {
         PreparedStatement ps;
         Connection con = Connect.conectar();
-        String query = "UPDATE student SET nombre = ?, lastName = ?, email = ?, active = ? WHERE id = ?";
+        String query = "UPDATE student SET nombre = ? WHERE id = ?";
 
         try {
 

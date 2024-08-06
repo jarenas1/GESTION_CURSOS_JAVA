@@ -6,7 +6,7 @@ import riwi.filtro.tools.Status;
 
 import java.util.List;
 
-public interface IModelStudent extends Create<StudentEntity>, Update<StudentEntity> {
+public interface IModelStudent extends Create<StudentEntity>, Delete<Integer>,Update<StudentEntity> {
 
     boolean updateName(int id, String name);
 
