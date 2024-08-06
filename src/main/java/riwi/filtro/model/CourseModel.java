@@ -42,23 +42,38 @@ public class CourseModel implements IModelCourse {
     public boolean delete(Integer identidicador) {
 
         //CREAMOS INSTANCIAS NECESARIAS Y QUERY
+        ResultSet rs;
         PreparedStatement ps;
         Connection con = Connect.conectar();
         String query = "DELETE FROM course WHERE id = ?;";
+        String query2 = "SELECT * FROM course INNER JOIN inscription ON inscription.id_course = course.id WHERE inscription.id_student IS NOT NULL AND inscription.id_course = 4;";
 
         try {
-            ps = con.prepareStatement(query);
-            //AÑADIR DATOS A QUERY
+            //VERIFICAR QUE EL CURSO ESTE VACIO ANTES DE BORRARLO
+            ps = con.prepareStatement(query2);
             ps.setInt(1,identidicador);
+            rs = ps.executeQuery();
+            if (!rs.next()){
+                try {
+                    ps = con.prepareStatement(query);
+                    //AÑADIR DATOS A QUERY
+                    ps.setInt(1,identidicador);
 
-            ps.execute();
-            return true;
+                    ps.execute();
+                    return true;
+                }catch (Exception e){
+                    System.out.println("the student cant be deleted "+e.getLocalizedMessage());
+                }finally {
+                    Connect.cerrar();
+                }
+                return false;
+            }
         }catch (Exception e){
-            System.out.println("the student cant be deleted "+e.getLocalizedMessage());
+            System.out.println(e.getMessage());
         }finally {
             Connect.cerrar();
         }
-        return false;
+            return false;
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------
@@ -100,7 +115,7 @@ public class CourseModel implements IModelCourse {
 
         try {
             ps = con.prepareStatement(query);
-            ps.setString(1,objeto.getName());
+            ps.setString(1,objeto.getName().toLowerCase());
             ps.setInt(2,objeto.getId());
 
             ps.execute();

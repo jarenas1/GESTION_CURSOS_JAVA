@@ -132,7 +132,7 @@ public class StudentModel implements IModelStudent {
         ResultSet rs;
         PreparedStatement ps;
         Connection con = Connect.conectar();
-        String query = "SELECT * FROM student WHERE status = ?;";
+        String query = "SELECT * FROM student WHERE active = ?;";
 
         //CREAMOS ARRAY CONTENEDOR DE ESTUDIANTES
         List<StudentEntity> students = new ArrayList<>();
@@ -154,7 +154,7 @@ public class StudentModel implements IModelStudent {
             }
 
         }catch (Exception e){
-            System.out.println("the users cannot be readed");
+            System.out.println("the users cannot be readed "+e.getMessage());
         }
         return students;
     }
@@ -167,7 +167,7 @@ public class StudentModel implements IModelStudent {
     public boolean updateName(int id, String name) {
         PreparedStatement ps;
         Connection con = Connect.conectar();
-        String query = "UPDATE student SET nombre = ? WHERE id = ?";
+        String query = "UPDATE student SET name = ? WHERE id = ?";
 
         try {
             ps = con.prepareStatement(query);
@@ -176,7 +176,7 @@ public class StudentModel implements IModelStudent {
             ps.execute();
             return true;
         }catch (Exception e){
-            System.out.println("The coder cannot be updated");
+            System.out.println("The coder cannot be updated "+e.getMessage());
         }finally {
             Connect.cerrar();
         }

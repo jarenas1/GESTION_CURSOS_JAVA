@@ -1,7 +1,5 @@
 package riwi.filtro.persistence.IModel;
 
-import riwi.filtro.controller.GradeModel;
-import riwi.filtro.entities.CourseEntity;
 import riwi.filtro.entities.GradeEntity;
 import riwi.filtro.persistence.CRUD.*;
 

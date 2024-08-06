@@ -5,6 +5,7 @@ import riwi.filtro.entities.InscriptionEntity;
 import riwi.filtro.persistence.IModel.IModelInscription;
 import riwi.filtro.persistence.dbConnection.Connect;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ public class InscriptionModel implements IModelInscription {
         PreparedStatement ps;
         Connection con = Connect.conectar();
         String query = "INSERT INTO course(id_course, id_student) VALUES (?,?);";
+        JOptionPane.showConfirmDialog(null," Are you sure you want to delete the inscrption? ");
 
         //EJECUCION
         try {
@@ -89,7 +91,7 @@ public class InscriptionModel implements IModelInscription {
     public boolean update(InscriptionEntity objeto) {
         PreparedStatement ps;
         Connection con = Connect.conectar();
-        String query = "UPDATE course SET id_course = ?, SET id_student = ? WHERE id = ?";
+        String query = "UPDATE inscription SET id_course = ?, id_student = ? WHERE id = ? ";
 
         try {
             ps = con.prepareStatement(query);

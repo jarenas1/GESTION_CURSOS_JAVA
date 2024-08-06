@@ -79,11 +79,11 @@ public class GradeModel implements IModelGrade {
             rs = ps.executeQuery();
 
             while (rs.next()){
-                GradeEntity grade = new GradeEntity(rs.getInt("id"), rs.getDouble("note"),rs.getString("description"),rs.getInt("id_student"), rs.getInt("id_course"));
+                GradeEntity grade = new GradeEntity(rs.getInt("id"), rs.getDouble(2),rs.getString(3),rs.getInt("id_student"), rs.getInt("id_course"));
                 grades.add(grade);
             }
         }catch (Exception e){
-            System.out.println("The student cannot be readed");
+            System.out.println("The student cannot be readed  "+e.getMessage());
         }finally {
             Connect.cerrar();
         }
@@ -93,6 +93,25 @@ public class GradeModel implements IModelGrade {
 
     @Override
     public boolean update(GradeEntity objeto) {
+        PreparedStatement ps;
+        Connection con = Connect.conectar();
+        String query = "UPDATE grade SET note =?, description = ?, id_student = ?, id_course = ? WHERE id = ?;";
+        try {
+            ps = con.prepareStatement(query);
+            //AÑADIR DATOS A QUERY
+            ps.setDouble(1,objeto.getNote());
+            ps.setString(2,objeto.getDescription());
+            ps.setInt(3,objeto.getId_student());
+            ps.setInt(4,objeto.getId_course());
+            ps.setInt(5,objeto.getId());
+
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("the grade cant be updated  0  "+e.getMessage());
+        }finally {
+            Connect.cerrar();
+        }
         return false;
     }
 }
