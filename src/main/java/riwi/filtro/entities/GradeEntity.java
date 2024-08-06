@@ -2,7 +2,7 @@ package riwi.filtro.entities;
 
 public class GradeEntity {
     private int id;
-    private String nota;
+    private Double note;
     private String description;
     private int id_student;
     private int id_course;
@@ -12,16 +12,16 @@ public class GradeEntity {
     public GradeEntity() {
     }
     //WITHOUT ID
-    public GradeEntity(String nota, String description, int id_student, int id_course) {
-        this.nota = nota;
+    public GradeEntity(Double note, String description, int id_student, int id_course) {
+        this.note = note;
         this.description = description;
         this.id_student = id_student;
         this.id_course = id_course;
     }
     //FULL CONSTRUCTOR
-    public GradeEntity(int id, String nota, String description, int id_student, int id_course) {
+    public GradeEntity(int id, Double note, String description, int id_student, int id_course) {
         this.id = id;
-        this.nota = nota;
+        this.note = note;
         this.description = description;
         this.id_student = id_student;
         this.id_course = id_course;
@@ -38,12 +38,12 @@ public class GradeEntity {
         this.id = id;
     }
 
-    public String getNota() {
-        return nota;
+    public Double getNote() {
+        return note;
     }
 
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setNote(Double nota) {
+        this.note = nota;
     }
 
     public String getDescription() {
