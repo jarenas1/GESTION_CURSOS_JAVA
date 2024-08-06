@@ -5,5 +5,5 @@ import riwi.filtro.entities.InscriptionEntity;
 import riwi.filtro.entities.StudentEntity;
 import riwi.filtro.persistence.CRUD.*;
 
-public interface IModelInscription extends Create<InscriptionEntity>, Delete<Integer>, ReadAll<InscriptionEntity>, ReadString<InscriptionEntity,String>, ReadInteger<InscriptionEntity,Integer>,Update<InscriptionEntity> {
+public interface IModelInscription extends Create<InscriptionEntity>, Delete<Integer>, ReadAll<InscriptionEntity>,Update<InscriptionEntity> {
 }

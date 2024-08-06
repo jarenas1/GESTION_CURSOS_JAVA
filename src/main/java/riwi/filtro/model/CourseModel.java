@@ -96,11 +96,12 @@ public class CourseModel implements IModelCourse {
     public boolean update(CourseEntity objeto) {
         PreparedStatement ps;
         Connection con = Connect.conectar();
-        String query = "UPDATE course SET name = ?";
+        String query = "UPDATE course SET name = ? WHERE id =?";
 
         try {
             ps = con.prepareStatement(query);
             ps.setString(1,objeto.getName());
+            ps.setInt(2,objeto.getId());
 
             ps.execute();
             return true;
